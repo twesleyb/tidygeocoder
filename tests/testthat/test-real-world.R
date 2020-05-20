@@ -21,4 +21,9 @@ df <- durham_test
 df$ADDR <- paste(trimws(df$SITE_ADDR),"Durham NC")
 
 # Encode addresses as lat/lon.
+# Time to execute...
 df2 <- df %>% geocode(ADDR)
+
+library(microbenchmark)
+
+microbenchmark(myfunction(with,arguments))
