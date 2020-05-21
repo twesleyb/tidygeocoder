@@ -1,0 +1,10 @@
+* Project '/mnt/d/projects/tidygeocoder' loaded. [renv 0.10.0]
+
+Evaluating time needed to geocode 100 addresses...
+Unit: seconds
+                     expr      min       lq     mean   median       uq      max
+ geocode(x100_rows, ADDR) 14.76898 14.96446 15.15467 15.15994 15.34751 15.53508
+ neval
+     3
+
+Predicted time to encode 88,303 addresses: 3.717 hours.
