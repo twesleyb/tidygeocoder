@@ -22,17 +22,9 @@ df <- durham_test
 df$ADDR <- paste(trimws(df$SITE_ADDR),"Durham NC")
 
 # Encode addresses as lat/lon.
-<<<<<<< HEAD
-# Time to execute...
-df2 <- df %>% geocode(ADDR)
-
-library(microbenchmark)
-
-microbenchmark(myfunction(with,arguments))
-=======
 df <- df %>% geocode(ADDR) # Initial impression: geocode is slow!
 
-# How long does it take?
+# But, how long does it take?
 message("\nEvaluating time needed to geocode 100 addresses...")
 x100_rows <- df
 benchmark <- microbenchmark(geocode(x100_rows,ADDR), times=3)
@@ -48,4 +40,3 @@ time_durham <- time_per_row * nrow(durham) / (60*60)
 # Status.
 message(paste("\nPredicted time to encode",formatC(nrow(durham),big.mark=","),
 	      "addresses:",round(time_durham,3),"hours."))
->>>>>>> e2a2134b3bf857da17c8d93bd339d5d8bdc5c52f
