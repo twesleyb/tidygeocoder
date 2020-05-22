@@ -324,6 +324,13 @@
       "Repository": "CRAN",
       "Hash": "4bb7e0c4f3557583e1e8d3c9ffb8ba5c"
     },
+    "microbenchmark": {
+      "Package": "microbenchmark",
+      "Version": "1.4-7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9ffe05828082333ec03d1669e5ca47b9"
+    },
     "mime": {
       "Package": "mime",
       "Version": "0.9",
@@ -344,6 +351,18 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dd4a1423f1472a2a8e05dd2c8945c3af"
+    },
+    "openRealestate": {
+      "Package": "openRealestate",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "twesleyb",
+      "RemoteRepo": "openRealestate",
+      "RemoteRef": "master",
+      "RemoteSha": "d13e9e1c761fbec052ad6feb54972ae7731b2950",
+      "Hash": "24ede9de1812593f3181d80d5c245541"
     },
     "openssl": {
       "Package": "openssl",
