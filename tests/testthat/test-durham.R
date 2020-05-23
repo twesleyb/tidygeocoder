@@ -18,9 +18,17 @@ data(durham) # From openRealestate
 durham$ADDR <- paste(trimws(durham$SITE_ADDR),"Durham NC")
 
 # Encode addresses as lat/lon.
-message(paste("Starting geocoding at:",Sys.time()))
+start <- Sys.time()
+message(paste("\nStarting geocoding at:",start))
 durham <- durham %>% geocode(ADDR)
 
+# Status.
+now <- Sys.time()
+dt <- difftime(now,start)
+message(paste0("\nCompleted geocoding at: ", now))
+message(paste0("\nTime to encode ", 
+	       formatC(nrow(durham), big.mark=","), " rows: ",
+	       round(dt,3), " ", attr(dt,"units"),"."))
+
 # Save to file.
-message(paste("Completed geocoding at:",Sys.time()))
 fwrite(durham,"durham.csv")
