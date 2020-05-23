@@ -18,5 +18,9 @@ data(durham) # From openRealestate
 durham$ADDR <- paste(trimws(durham$SITE_ADDR),"Durham NC")
 
 # Encode addresses as lat/lon.
-message(paste("Starting test at:",Sys.time()))
+message(paste("Starting geocoding at:",Sys.time()))
 durham <- durham %>% geocode(ADDR)
+
+# Save to file.
+message(paste("Completed geocoding at:",Sys.time()))
+fwrite(durham,"durham.csv")
