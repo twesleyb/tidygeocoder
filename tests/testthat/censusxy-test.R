@@ -1,9 +1,8 @@
 #!/usr/env/bin Rscript
 
-renv::load(getrd())
-
-# The censusxy package is designed to provide easy access to the U.S. Census
-# Bureau Geocoding Tools: https://geocoding.geo.census.gov/geocoder/ in R.
+# The censusxy package provides easy access to the U.S. Census Bureau's
+# Geocoding Tools: https://geocoding.geo.census.gov/geocoder/ in R.
+# These tools allow for unlimited free geocoding
 
 # The Census Bureau Geocoding Tools allow for both unlimited free geocoding as 
 # well as an added level of reproducibility compared to commercial geocoders. 
@@ -18,6 +17,7 @@ renv::load(getrd())
 #install.packages("censusxy")
 #devtools::install_github("slu-openGIS/censusxy")
 
+renv::load(getrd())
 # NOTE: Installation fails because of unmet units dependency.
 # The 'sf' option in the central cxy_geocode function utilzes the
 # 'sf' package, which in turn relies upon the units library.
