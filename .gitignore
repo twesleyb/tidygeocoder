@@ -1,10 +1,12 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.DS_Store
-inst/doc
-doc
-Meta
-renv/library
-renv/stagging
+.Rproj.user # ignore R user data
+.Rhistory # ignore R history
+.RData # ignore RData files
+.Ruserdata # ignore R used data
+.DS_Store # ignore temporary files
+inst/doc # ignore installation files
+doc # ignore docs
+Meta # ignore Meta data
+renv/library # ignore R libraries
+renv/stagging # ignore staged installation file
+*.swp # ignore temporary fiiles
+*.swn # ignore temporary files
