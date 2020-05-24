@@ -1,5 +1,5 @@
 * Project '/mnt/d/projects/tidygeocoder' loaded. [renv 0.10.0]
-* The project and lockfile are out of sync -- use `renv::status()` for more details.
+
 Retrieving 'http://cran.r-project.org/src/contrib/censusxy_0.1.2.tar.gz' ...
 	OK [file is up to date]
 Retrieving 'http://cran.r-project.org/src/contrib/sf_0.9-3.tar.gz' ...

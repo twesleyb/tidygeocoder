@@ -1,0 +1,13 @@
+# First test:
+
+* Starting geocoding at: 2020-05-23 08:27:32
+* Completed geocoding at: 2020-05-23 14:29:09
+
+__Time to encode 88,303 rows: 6.027 hours.__
+
+# Second test:
+
+* Starting geocoding at: 2020-05-23 14:44:02
+* Completed geocoding at: 2020-05-23 22:19:24
+
+__Time to encode 88,303 rows: 7.589 hours.__

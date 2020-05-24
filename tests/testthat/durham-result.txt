@@ -1,7 +1,0 @@
-* Project '/mnt/d/projects/tidygeocoder' loaded. [renv 0.10.0]
-
-Starting geocoding at: 2020-05-23 14:44:02
-
-Completed geocoding at: 2020-05-23 22:19:24
-
-Time to encode 88,303 rows: 7.589 hours.
