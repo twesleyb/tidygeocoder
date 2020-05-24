@@ -24,7 +24,7 @@ df$ADDR <- paste(trimws(df$SITE_ADDR),"Durham NC")
 # Encode addresses as lat/lon.
 df <- df %>% geocode(ADDR) # Initial impression: geocode is slow!
 
-# How long does it take?
+# But, how long does it take?
 message("\nEvaluating time needed to geocode 100 addresses...")
 x100_rows <- df
 benchmark <- microbenchmark(geocode(x100_rows,ADDR), times=3)
