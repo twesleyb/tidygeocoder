@@ -1,5 +1,7 @@
 #!/usr/env/bin Rscript
 
+renv::load(getrd())
+
 # The censusxy package is designed to provide easy access to the U.S. Census
 # Bureau Geocoding Tools: https://geocoding.geo.census.gov/geocoder/ in R.
 
@@ -15,8 +17,15 @@
 # package responsibly, as others will need use of this API for their research.
 
 ### Installation
-install.packages("censusxy")
+#install.packages("censusxy")
 #devtools::install_github("slu-openGIS/censusxy")
+# Installation fails because of unmet units dependency.
+# The 'sf' option in the central cxy_geocode function utilzes the
+# 'sf' package, which in turn relies upon the units library.
+# I've forked the repo and just commented out the offending line.
+# Try installing my fork:
+#devtools::install_github("twesleyb/census_xy")
+
 
 ## Test data.
 data("stl_homicides")
