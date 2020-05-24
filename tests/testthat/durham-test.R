@@ -31,4 +31,4 @@ message(paste0("\nTime to encode ",
 	       round(dt,3), " ", attr(dt,"units"),"."))
 
 # Save to file.
-fwrite(durham,"durham.csv")
+data.table::fwrite(durham,"durham.csv")
