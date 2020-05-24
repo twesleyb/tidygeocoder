@@ -11,7 +11,8 @@ suppressPackageStartupMessages({
 	library(openRealestate)
 })
 
-# How long to encode a larger dataset?
+#--------------------------------------------------------------------
+## How long to encode a larger dataset?
 data(durham) # From openRealestate
 
 # Create column with addresses.
@@ -32,3 +33,14 @@ message(paste0("\nTime to encode ",
 
 # Save to file.
 data.table::fwrite(durham,"durham.csv")
+
+#--------------------------------------------------------------------
+## How many missing values?
+
+durham <- data.table::fread("durham.csv")
+
+is_missing <- is.na(durham$lat) & is.na(durham$long)
+percent_missing <- 100*sum(is_missing)/length(is_missing)
+message(paste("Percent addresses with missing lat/long:",
+	      round(percent_missing,2),"(%)."))
+
