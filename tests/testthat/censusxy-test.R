@@ -2,32 +2,27 @@
 
 # The censusxy package provides easy access to the U.S. Census Bureau's
 # Geocoding Tools: https://geocoding.geo.census.gov/geocoder/ in R.
-# These tools allow for unlimited free geocoding
-
-# The Census Bureau Geocoding Tools allow for both unlimited free geocoding as 
-# well as an added level of reproducibility compared to commercial geocoders. 
-# Many geospatial workflows involve a large quantity of addresses, hence our 
-# core focus is on batch geocoding.
-
-# NOTE: The U.S. Census Bureau makes their geocoding API available without any API key, 
-# and this package allows for virtually unlimited batch geocoding. Please use this 
-# package responsibly, as others will need use of this API for their research.
+# These tools allow for unlimited, free geocoding.
 
 # Installation
-#install.packages("censusxy")
-#devtools::install_github("slu-openGIS/censusxy")
+# install.packages("censusxy")
+# devtools::install_github("slu-openGIS/censusxy")
 
-renv::load(getrd())
-# NOTE: Installation fails because of unmet units dependency.
+# NOTE: Installation fails because of units dependency.
 # The 'sf' option in the central cxy_geocode function utilzes the
 # 'sf' package, which in turn relies upon the units library.
 # I've forked the repo and just commented out the offending line.
 # Try installing my fork:
 #devtools::install_github("twesleyb/census_xy")
 
-# Load the test data.
+# Load renv.
+renv::load(getrd())
+
+# Load censusxy.
 library(censusxy)
-data("stl_homicides")
+
+# Load the test data.
+data(stl_homicides)
 
 # Parsing Addresses
 # Dataframe or alike object should contain seperate columns for:
