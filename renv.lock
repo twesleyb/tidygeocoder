@@ -102,8 +102,8 @@
       "RemoteUsername": "twesleyb",
       "RemoteRepo": "censusxy",
       "RemoteRef": "master",
-      "RemoteSha": "97383b8e06eeec2e90e82c92292583491f69e765",
-      "Hash": "2e6d6daae22dcc2d521a3103495d6db6"
+      "RemoteSha": "487ef124005a8cc3687dd407f2badbb27e717dba",
+      "Hash": "3be34d728e245b8f165aa12c09282610"
     },
     "cli": {
       "Package": "cli",
@@ -139,6 +139,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "2b7d10581cc730804e9ed178c8374bd6"
+    },
+    "data.table": {
+      "Package": "data.table",
+      "Version": "1.12.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "cd711af60c47207a776213a368626369"
     },
     "desc": {
       "Package": "desc",
