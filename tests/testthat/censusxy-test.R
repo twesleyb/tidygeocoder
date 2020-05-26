@@ -42,6 +42,7 @@ data(stl_homicides)
 
 run_chunk <- FALSE
 if (run_chunk) { 
+
 # Time to geocode the homicide_sf dataset:
 n_addrs <- nrow(stl_homicides)
 message(paste("\nAnalyzing time to encode", formatC(n_addrs,big.mark=","),
@@ -85,22 +86,21 @@ message(paste("\nGeocoding a single address:",
 	      paste(unlist(address), collapse=" ")))
 
 # A function to perform geocoding with cxy_single:
-geocode <- function(addr) { suppressWarnings(do.call(cxy_single, addr)) } 
-# geocode(address)
+geocode_cxy <- function(addr) { suppressWarnings(do.call(cxy_single, addr)) } 
+#geocode_cxy(address)
 
 # A function to do an equivalent operation with tidygeocoder:
 # NOTE: tidygeocoder takes a df as input, so for a fair comparison
 # let's do this little bit of work before hand.
-df <- data.frame("address"=paste(address,collapse=" "))
-geocode_tidy <- function(df) { tidygeocoder::geocode(df,"address") }
+addr_df <- data.frame("address"=paste(address,collapse=" "))
+geocode_tidy <- function(addr_df) { tidygeocoder::geocode(addr_df,"address") }
 
 # Run experiment:
-message("\nAnalyzing time to encode 100 adderesses...")
-result <- microbenchmark(geocode(address), geocode_tidy(df), times=100)
+n <- 100
+message(paste("\nAnalyzing time to encode", n, "adderesses..."))
+result <- microbenchmark(geocode_cxy(address), geocode_tidy(addr_df), times=n)
 
 # Check mean time for each:
 result_df <- as.data.frame(result) %>% 
 	group_by(expr) 
 result_df %>% summarize(Mean=mean(time*10^-6)) %>% knitr::kable()
-
-# The result is clear, tidygeocoder is much faster.
