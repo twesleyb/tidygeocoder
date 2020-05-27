@@ -1,0 +1,26 @@
+* Project '/mnt/d/projects/tidygeocoder' loaded. [renv 0.10.0]
+WARNING: One or more problems were discovered while enumerating dependencies.
+
+/mnt/d/projects/tidygeocoder/tests/testthat/censusxy-test.R
+-----------------------------------------------------------
+
+ERROR 1: /mnt/d/projects/tidygeocoder/tests/testthat/censusxy-test.R:32:1: unexpected input
+31: data(stl_homicides)
+32: <<
+    ^
+
+Please see `?renv::dependencies` for more information.
+WARNING: One or more problems were discovered while enumerating dependencies.
+
+/mnt/d/projects/tidygeocoder/tests/testthat/censusxy-test.R
+-----------------------------------------------------------
+
+ERROR 1: /mnt/d/projects/tidygeocoder/tests/testthat/censusxy-test.R:32:1: unexpected input
+31: data(stl_homicides)
+32: <<
+    ^
+
+Please see `?renv::dependencies` for more information.
+* The project and lockfile are out of sync -- use `renv::status()` for more details.
+Error: unexpected input in "<<"
+Execution halted

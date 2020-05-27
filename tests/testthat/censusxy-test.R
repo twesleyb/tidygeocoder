@@ -8,35 +8,28 @@
 # install.packages("censusxy")
 # devtools::install_github("slu-openGIS/censusxy")
 
-# NOTE: Installation fails because of units dependency.
+# NOTE: Installation failed because of units dependency.
 # The 'sf' option in the central cxy_geocode function utilzes the
 # 'sf' package, which in turn relies upon the units library.
-# I've forked the repo and just commented out the offending line.
-# Try installing my fork:
+# I've forked the repo and just removed any calls to 'sf'.
+
+# Try using my fork:
 #devtools::install_github("twesleyb/census_xy")
 
-# Parsing Addresses
-# Dataframe or alike object should contain seperate columns for:
-# NOTE: The postmastr package might be helpful if you need to get city/zip from
-# street address: https://github.com/slu-openGIS/postmastr).
-# * street address - required; the rest are optional.
-# * city
-# * state 
-# * zipcode
-
-#--------------------------------------------------------------------
 # Load renv.
 renv::load(getrd())
 
-# Other imports:
+# Load twesleyb/censusxy and additional libs:
 suppressPackageStartupMessages({
-	library(dplyr)
 	library(censusxy)
 	library(microbenchmark)
+	library(tidygeocoder)
+	library(dplyr)
 })
 
-# Load the test data from the censusxy package.
+# Load the test data.
 data(stl_homicides)
+<<<<<<< HEAD
 dt <- stl_homicides
 
 #--------------------------------------------------------------------
@@ -81,49 +74,87 @@ res2 %>% select(lat, long) %>% knitr::kable()
 # What is the time to execute?
 message("\nAnalyzing time to encode 100 adderesses with Censusxy...")
 geocode <- function(addr) { suppressWarnings(do.call(cxy_single, addr)) } 
-timing_res0 <- microbenchmark(geocode(addr0),geocode(addr1),times=100)
+timing_res0 <- microbenchmark(geocode(addr0),geocode(addr1),times=10)
+print(timing_res0)
+
+quit()
 
 # As indicated by the warning, omission of zip slows things down, 
 # but just a little bit.
+=======
+>>>>>>> 08d0e147cea6a4790421df06d9c11947f9110ef4
+
+# NOTE: On parsing addresses with censusxy:
+# Dataframe or alike object should contain seperate columns for:
+# * street address - required; the rest are optional.
+# * city
+# * state 
+# * zipcode
 
 #--------------------------------------------------------------------
-## Batch Geocoding
+# Try batch Geocoding
 
-# Subset the data--100 unique addresses.
-subdt <- dt %>% filter(!duplicated(address)) %>%
-	filter(address %in% sample(address, 100))
+run_chunk <- FALSE
+if (run_chunk) { 
 
-# Batch geocoding with cxy_geocode:
-# NOTE: Doesn't work! 
-# Failed with error:  ‘there is no package called ‘sf’’
-skip = TRUE
-if (!skip) {
-result <- cxy_geocode(subdt, street = 'street_address', 
-		      city = 'city', state = 'state')
+# Time to geocode the homicide_sf dataset:
+n_addrs <- nrow(stl_homicides)
+message(paste("\nAnalyzing time to encode", formatC(n_addrs,big.mark=","),
+	      "addresses with censusxy::cxy_geocode..."))
+start <- Sys.time()
+homicide_sf <- cxy_geocode(stl_homicides, street = 'street_address', 
+			   city = 'city', state = 'state')
+end <- Sys.time()
+
+# Results:
+delta_t <- difftime(end,start,units="secs")
+message(paste("Time to geocode", formatC(n_addrs,big.mark=","), 
+	      "addresses:", round(delta_t/60,3),"minutes"))
+message(paste("Average time per row:",round(as.numeric(delta_t/n_addrs),3),
+	"seconds."))
+
+# Print the result:
+#knitr::kable(head(homicide_sf))
+
 }
 
-#--------------------------------------------------------------------
-## How long for tidygeocoder to encode these 100 addresses?
+# NOTE: Worked BUT, very slow.
+# NOTE: Not working on my pc, fails with curl error:
+# Empty reply from server.
 
-# Strip NA from addresses.
-subdt$addr <- gsub(" NA","",subdt$address)
+#---------------------------------------------------------------------
+# Compare time taken to encode a single address with tidygeocoder.
 
-# What is the time to execute?
-# Time to encode the 100 unique addresses, no zip codes:
-tidygeocode <- function(addr) { subdt %>% tidygeocoder::geocode(addr) }
-timing_res1 <- microbenchmark(tidygeocode(addr),times=1)
+# Add column with complete addresses for tidygeocoder.
+df <- stl_homicides
+df$address <- paste(df$street_address,df$city,
+		    df$state,sep=" ")
 
-#--------------------------------------------------------------------
-## Compare timing results:
+# Get a random address.
+set.seed(as.numeric(Sys.time()))
+df <- df %>% filter(!duplicated(address))
+address <- df %>% filter(address == sample(address,1)) %>% 
+	select(street_address,city,state) %>% as.list()
+names(address)[1] <- "street"
+message(paste("\nGeocoding a single address:", 
+	      paste(unlist(address), collapse=" ")))
 
-# Not really a fair comparison since censusxy's comparable function
-# is not working for me.
+# A function to perform geocoding with cxy_single:
+geocode_cxy <- function(addr) { suppressWarnings(do.call(cxy_single, addr)) } 
+#geocode_cxy(address)
 
-message("\nTime in seconds to encode 100 addresses with Censusxy:")
-as.data.frame(timing_res0) %>% filter(expr=="geocode(addr0)") %>%
-	summarize("mean"=mean(100*time)*10^-9,
-		  "std" = sd(100*time)*10^-9) %>% knitr::kable()
+# A function to do an equivalent operation with tidygeocoder:
+# NOTE: tidygeocoder takes a df as input, so for a fair comparison
+# let's do this little bit of work before hand.
+addr_df <- data.frame("address"=paste(address,collapse=" "))
+geocode_tidy <- function(addr_df) { tidygeocoder::geocode(addr_df,"address") }
 
-message(paste("\nTime to encode 100 addresses with tidygeocoder:\n",
-	as.numeric(as.data.frame(timing_res1)$time * 10^-9),
-	"seconds.")) # Seconds.
+# Run experiment:
+n <- 100
+message(paste("\nAnalyzing time to encode", n, "adderesses..."))
+result <- microbenchmark(geocode_cxy(address), geocode_tidy(addr_df), times=n)
+
+# Check mean time for each:
+result_df <- as.data.frame(result) %>% 
+	group_by(expr) 
+result_df %>% summarize(Mean=mean(time*10^-6)) %>% knitr::kable()

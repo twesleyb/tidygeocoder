@@ -1,29 +1,11 @@
 * Project '/mnt/d/projects/tidygeocoder' loaded. [renv 0.10.0]
 
-Geocoding a single address: 2525 Semple Ave St. Louis MO
+Geocoding a single address: 3305 Franklin Ave St. Louis MO
 
-Censusxy coordinates:
-
-
-|      lat|      long|
-|--------:|---------:|
-| 38.67229| -90.26884|
-
-Tidygeocoder coordinates:
+Analyzing time to encode 100 adderesses...
 
 
-|      lat|      long|
-|--------:|---------:|
-| 38.67229| -90.26884|
-
-Analyzing time to encode 100 adderesses with Censusxy...
-
-Time in seconds to encode 100 addresses with Censusxy:
-
-
-|   mean|      std|
-|------:|--------:|
-| 16.352| 3.309689|
-
-Time to encode 100 addresses with tidygeocoder:
- 124.4309257 seconds.
+|expr             |     Mean|
+|:----------------|--------:|
+|geocode(address) | 254.3737|
+|geocode_tidy(df) | 254.7052|
